@@ -84,7 +84,7 @@ export default function Login() {
           <div className="mt-6 grid grid-cols-2 gap-3">
   <button
     type="button"
-    onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/google`}
+    onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/google`}
     className="w-full flex items-center justify-center p-3 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
   >
     <img src="https://www.svgrepo.com/show/475656/google-color.svg" className="h-5 w-5 mr-2" />
@@ -93,7 +93,7 @@ export default function Login() {
 
   <button
     type="button"
-    onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/github`}
+    onClick={() => window.location.href = `${process.env.NEXT_PUBLIC_API_URL}/api/auth/github`}
     className="w-full flex items-center justify-center p-3 bg-white/10 border border-white/20 rounded-lg hover:bg-white/20 transition-colors"
   >
     <img src="https://www.svgrepo.com/show/512317/github-142.svg" className="h-5 w-5 mr-2 invert" />

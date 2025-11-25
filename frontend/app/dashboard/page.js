@@ -5,6 +5,7 @@ import api from "@/utils/api";
 import Cookies from "js-cookie";
 import { useAuth } from "../../hooks/useAuth";
 import { useNotifications } from "../../components/NotificationContext";
+import ProtectedRoute from "../../components/ProtectedRoute";
 import {
   LayoutDashboard,
   CheckSquare,
@@ -168,7 +169,8 @@ export default function Dashboard() {
   if (loading) return <div className="flex items-center justify-center min-h-screen bg-slate-950"><div className="animate-spin rounded-full h-16 w-16 border-t-4 border-b-4 border-cyan-500"></div></div>;
 
   return (
-    <div className="min-h-screen text-white flex relative z-10">
+    <ProtectedRoute>
+      <div className="min-h-screen text-white flex relative z-10">
       <div className="w-64 min-h-screen bg-slate-900/60 backdrop-blur-md border-r border-cyan-500/30 hidden lg:block">
         <div className="p-6">
           <h1 className="text-2xl font-bold neon-glow-cyan mb-8">NEXUS</h1>
@@ -552,5 +554,6 @@ export default function Dashboard() {
         </div>
       )}
     </div>
+    </ProtectedRoute>
   );
 }
