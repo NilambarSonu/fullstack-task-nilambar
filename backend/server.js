@@ -44,6 +44,7 @@ app.use("/api/tasks", require("./routes/task"));
 
 // Export for Vercel serverless
 module.exports = app;
+app.get('/api/health', (req, res) => res.json({ ok: true }));
 
 // Only run when executed locally (NOT on Vercel)
 if (require.main === module) {
