@@ -19,10 +19,22 @@ app.use(cors({
 }));
 
 // Connect to MongoDB
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.log("❌ MongoDB Connection Error:", err));
+let conn = null;
+async function connectDB() {
+  if (conn) return conn;
+
+  conn = mongoose.connect(process.env.MONGO_URI, {
+    useNewUrlParser: true,
+    useUnifiedTopology: true
+  });
+
+  await conn;
+  return conn;
+}
+
+connectDB()
+  .then(() => console.log("Connected to MongoDB"))
+  .catch((err) => console.error("Mongo error:", err));
 
 // Session + passport
 app.use(session({
