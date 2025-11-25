@@ -16,7 +16,7 @@ export function NotificationProvider({ children }) {
       message,
       time: new Date(),
     };
-    setNotifications((prev) => [newNotification, ...prev.slice(0, 9)]); // Keep only 10
+    setNotifications((prev) => [newNotification, ...prev.slice(0, 9)]);
   };
 
   const removeNotification = (id) => {

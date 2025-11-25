@@ -18,7 +18,6 @@ import {
   Trash2
 } from "lucide-react";
 
-// Helper function to calculate time ago
 const timeAgo = (date) => {
   const seconds = Math.floor((new Date() - date) / 1000);
   let interval = Math.floor(seconds / 31536000);
@@ -61,26 +60,22 @@ export default function Dashboard() {
     { name: "Health", count: 8, avatars: 1 },
   ];
 
-  // Mock data for widgets
   const comments = [
     { id: 1, text: "Market research", time: "2 hours ago" },
     { id: 2, text: "Design feedback", time: "4 hours ago" },
     { id: 3, text: "Client meeting notes", time: "1 day ago" },
   ];
 
-  // Task Progress State - Fixed values for timeline display
   const taskProgress = {
     todayProgress: 75,
     weekProgress: 60,
     monthProgress: 45
   };
 
-  // Generate random progress values for categories (fixed on mount)
   const [categoryProgress] = useState(() =>
     categories.map(() => Math.floor(Math.random() * 100))
   );
 
-  // Calculate real-time task stats
   const taskStats = {
     total: tasks.length,
     completed: tasks.filter(t => t.completed).length,
@@ -88,7 +83,6 @@ export default function Dashboard() {
     percentage: tasks.length > 0 ? Math.round((tasks.filter(t => t.completed).length / tasks.length) * 100) : 0
   };
 
-  // Calendar data for November 2025
   const calendarDays = [
     26, 27, 28, 29, 30, 31, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10,
     11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26,
@@ -127,12 +121,10 @@ export default function Dashboard() {
       const res = await api.post("/tasks", newTask);
       setTasks([res.data, ...tasks]);
       
-      // --- NEW: Add Notification ---
       addNotification({
         type: "Task Created",
         message: `"${newTask.title}" was created successfully`,
       });
-      // -----------------------------
 
       setNewTask({ title: "", description: "" });
       setShowNewTaskModal(false);
@@ -141,7 +133,6 @@ export default function Dashboard() {
     }
   };
 
-  // ... (handleToggleStatus, handleDeleteTask, handleNavigation remain the same) ...
   const handleToggleStatus = async (task) => {
     try {
       const updatedTasks = tasks.map((t) => 
@@ -178,7 +169,6 @@ export default function Dashboard() {
 
   return (
     <div className="min-h-screen text-white flex relative z-10">
-      {/* ... Sidebar code ... */}
       <div className="w-64 min-h-screen bg-slate-900/60 backdrop-blur-md border-r border-cyan-500/30 hidden lg:block">
         <div className="p-6">
           <h1 className="text-2xl font-bold neon-glow-cyan mb-8">NEXUS</h1>
@@ -202,7 +192,6 @@ export default function Dashboard() {
       </div>
 
       <div className="flex-1 flex flex-col">
-        {/* Top Bar */}
         <header className="bg-slate-900/60 backdrop-blur-md border-b border-cyan-500/30 p-4">
           <div className="flex items-center justify-between">
             <div className="relative flex-1 max-w-md">
@@ -228,7 +217,6 @@ export default function Dashboard() {
                 className="relative p-2 text-slate-400 hover:text-cyan-300 transition-colors"
               >
                 <Bell size={20} />
-                {/* Notification Badge */}
                 {notifications.length > 0 && (
                   <span className="absolute top-1 right-1 w-2 h-2 bg-red-500 rounded-full"></span>
                 )}
@@ -240,11 +228,9 @@ export default function Dashboard() {
           </div>
         </header>
 
-        {/* Main Dashboard Grid */}
         <main className="flex-1 p-6">
           <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 gap-6">
 
-            {/* Calendar Widget */}
             <div className="lg:col-span-1 xl:col-span-1 bg-slate-900/60 backdrop-blur-md border border-cyan-500/30 rounded-xl p-4">
               <h3 className="text-lg font-bold text-slate-200 mb-4 neon-glow-cyan">Calendar</h3>
               <div className="text-center mb-4">
@@ -267,7 +253,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* My Tasks Widget */}
             <div className="lg:col-span-2 xl:col-span-2 bg-slate-900/60 backdrop-blur-md border border-cyan-500/30 rounded-xl p-4">
               <h3 className="text-lg font-bold text-slate-200 mb-4 neon-glow-cyan">My Tasks</h3>
               <div className="space-y-3">
@@ -301,7 +286,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* New Comments Widget */}
             <div className="xl:col-span-1 bg-slate-900/60 backdrop-blur-md border border-cyan-500/30 rounded-xl p-4">
               <h3 className="text-lg font-bold text-slate-200 mb-4 neon-glow-cyan">New Comments</h3>
               <div className="space-y-3">
@@ -314,7 +298,6 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* My Categories Widget */}
             <div className="xl:col-span-1 bg-slate-900/60 backdrop-blur-md border border-cyan-500/30 rounded-xl p-4">
               <h3 className="text-lg font-bold text-slate-200 mb-4 neon-glow-cyan">Categories</h3>
               <div className="space-y-4">
@@ -337,15 +320,12 @@ export default function Dashboard() {
               </div>
             </div>
 
-            {/* Progress Visualization Widget */}
             <div className="lg:col-span-3 xl:col-span-3 bg-slate-900/60 backdrop-blur-md border border-cyan-500/30 rounded-xl p-6">
               <h3 className="text-lg font-bold text-slate-200 mb-6 neon-glow-cyan">Task Progress Analytics</h3>
 
-              {/* Circular Progress Indicator */}
               <div className="flex items-center justify-center mb-8">
                 <div className="relative w-32 h-32">
                   <svg className="w-32 h-32 transform -rotate-90" viewBox="0 0 100 100">
-                    {/* Background circle */}
                     <circle
                       cx="50"
                       cy="50"
@@ -354,7 +334,6 @@ export default function Dashboard() {
                       strokeWidth="8"
                       fill="transparent"
                     />
-                    {/* Progress circle */}
                     <circle
                       cx="50"
                       cy="50"
@@ -367,7 +346,6 @@ export default function Dashboard() {
                       strokeDashoffset={`${2 * Math.PI * 40 * (1 - taskStats.percentage / 100)}`}
                       className="transition-all duration-1000 ease-out"
                     />
-                    {/* Gradient definition */}
                     <defs>
                       <linearGradient id="progressGradient" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stopColor="var(--neon-cyan)" />
@@ -386,7 +364,6 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Progress Statistics */}
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
                 <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
                   <div className="flex items-center justify-between mb-2">
@@ -425,11 +402,9 @@ export default function Dashboard() {
                 </div>
               </div>
 
-              {/* Progress Timeline */}
               <div className="space-y-4">
                 <h5 className="text-slate-300 font-medium text-lg">Progress Breakdown</h5>
 
-                {/* Today's Progress */}
                 <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-slate-200">Today</span>
@@ -447,7 +422,6 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Weekly Progress */}
                 <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-slate-200">This Week</span>
@@ -465,7 +439,6 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Monthly Progress */}
                 <div className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
                   <div className="flex items-center justify-between mb-2">
                     <span className="text-slate-200">This Month</span>
@@ -483,7 +456,6 @@ export default function Dashboard() {
                   </div>
                 </div>
 
-                {/* Category Progress Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-6">
                   {categories.slice(0, 4).map((category, idx) => (
                     <div key={category.name} className="bg-slate-800/30 rounded-lg p-4 border border-slate-700/50">
@@ -517,7 +489,6 @@ export default function Dashboard() {
         </main>
       </div>
 
-      {/* --- UPDATED: Notifications Panel --- */}
       {showNotifications && (
         <div className="fixed inset-0 bg-black/20 backdrop-blur-sm z-40" onClick={() => setShowNotifications(false)}>
           <div className="absolute top-16 right-32 w-80 bg-slate-900/95 backdrop-blur-md border border-cyan-500/30 rounded-xl p-4 shadow-2xl" onClick={e => e.stopPropagation()}>
@@ -546,7 +517,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      {/* New Task Modal (Same as before) */}
       {showNewTaskModal && (
         <div className="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center z-50 p-4" onClick={() => setShowNewTaskModal(false)}>
           <div className="bg-slate-900 border border-cyan-500/50 rounded-2xl p-8 w-full max-w-md shadow-[0_0_50px_rgba(34,211,238,0.15)] relative" onClick={e => e.stopPropagation()}>

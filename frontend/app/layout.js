@@ -35,10 +35,8 @@ export default function RootLayout({ children }) {
         />
       </head>
       <body>
-        {/* Canvas Particle System Background */}
         <ParticleCanvas />
 
-        {/* Floating Animation Particles */}
         <div className="particle-1"></div>
         <div className="particle-2"></div>
         <div className="particle-3"></div>

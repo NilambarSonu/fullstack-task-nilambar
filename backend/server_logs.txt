@@ -1,0 +1,31 @@
+
+PS C:\Users\Asus\OneDrive\Code_X\fullstack-task-nilambar> cd backend 
+PS C:\Users\Asus\OneDrive\Code_X\fullstack-task-nilambar\backend> npm run dev
+
+> nexus-backend@1.0.0 dev
+> nodemon server.js
+
+[nodemon] 3.1.11
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node server.js`
+[dotenv@17.2.3] injecting env (11) from .env -- tip: 🔄 add secrets lifecycle management: https://dotenvx.com/ops
+🚀 Local server running on port 5000
+✅ MongoDB Connected
+
+==============================================================================================================================
+
+PS C:\Users\Asus\OneDrive\Code_X\fullstack-task-nilambar> cd frontend
+PS C:\Users\Asus\OneDrive\Code_X\fullstack-task-nilambar\frontend> npm run dev
+
+> nexus-task-manager@0.1.0 dev
+> next dev
+
+   ▲ Next.js 16.0.3 (Turbopack)
+   - Local:         http://localhost:3000
+   - Network:       http://10.212.72.144:3000
+   - Environments: .env.local
+
+ ✓ Starting...
+ ✓ Ready in 504ms

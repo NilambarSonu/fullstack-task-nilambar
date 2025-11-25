@@ -3,7 +3,6 @@ const Task = require("../models/Task");
 const auth = require("../middleware/authMiddleware");
 
 const router = express.Router();
-// get tasks for the login user
 router.get("/", auth, async (req, res) => {
   try {
     const tasks = await Task.find({ user: req.user.id }).sort({ createdAt: -1 });
@@ -12,7 +11,6 @@ router.get("/", auth, async (req, res) => {
     res.status(500).send("Server Error");
   }
 });
-// create a new task
 router.post("/", auth, async (req, res) => {
   const { title, description } = req.body;
   try {
@@ -28,7 +26,6 @@ router.post("/", auth, async (req, res) => {
   }
 });
 
-// delete task
 router.delete("/:id", auth, async (req, res) => {
   try {
     let task = await Task.findById(req.params.id);
@@ -44,7 +41,6 @@ router.delete("/:id", auth, async (req, res) => {
   }
 });
 
-// update task
 router.put("/:id", auth, async (req, res) => {
   const { title, description, completed } = req.body;
 

@@ -6,18 +6,15 @@ const auth = require("../middleware/authMiddleware");
 const passport = require("passport");
 
 const router = express.Router();
-// register for new user
 router.post("/register", async (req, res) => {
   const { username, email, password } = req.body;
   try {
     let user = await User.findOne({ email });
     if (user) return res.status(400).json({ msg: "User already exists" });
     user = new User({ username, email, password });
-    // hash Password
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(password, salt);
     await user.save();
-    // create jwt token
     const payload = { user: { id: user.id } };
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" }, (err, token) => {
       if (err) throw err;
@@ -29,7 +26,6 @@ router.post("/register", async (req, res) => {
   }
 });
 
-// authenticate user & get token
 router.post("/login", async (req, res) => {
   const { email, password } = req.body;
 
@@ -59,22 +55,18 @@ router.get("/me", auth, async (req, res) => {
   }
 });
 
-// Google Login
 router.get("/google", passport.authenticate("google", { scope: ["profile", "email"] }));
 
 router.get("/google/callback", 
   passport.authenticate("google", { failureRedirect: "/" }),
   (req, res) => {
-    // Generate JWT for the user
     const payload = { user: { id: req.user.id } };
     jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: "1h" }, (err, token) => {
-      // Redirect to frontend with token in URL
       res.redirect(`${process.env.FRONTEND_URL}/login?token=${token}`);
     });
   }
 );
 
-// GitHub Login
 router.get("/github", passport.authenticate("github", { scope: ["user:email"] }));
 
 router.get("/github/callback", 

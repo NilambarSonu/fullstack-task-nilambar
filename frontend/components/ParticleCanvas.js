@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/unsupported-syntax */
 "use client";
 import { useEffect, useRef } from 'react';
 
@@ -132,7 +131,6 @@ const ParticleCanvas = () => {
           pointerEvents: 'none',
         }}
       />
-      {/* Gradient overlay */}
       <div
         style={{
           position: 'absolute',

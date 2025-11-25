@@ -22,7 +22,6 @@ export default function Login() {
   }, [isLoggedIn, router]);
 
   useEffect(() => {
-    // Check if URL has token (from OAuth redirect)
     const token = searchParams.get("token");
     if (token) {
       Cookies.set("token", token);
