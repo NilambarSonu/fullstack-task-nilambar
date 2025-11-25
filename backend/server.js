@@ -26,7 +26,7 @@ async function connectToDatabase() {
     await global._mongoosePromise;
     return;
   }
-  global._mongoosePromise = mongoose.connect(process.env.MONGO_URI);
+  global._mongoosePromise = mongoose.connect(process.env.MONGODB_URI);
   await global._mongoosePromise;
 }
 connectToDatabase()
