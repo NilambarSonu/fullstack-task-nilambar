@@ -21,17 +21,19 @@ app.use(cors({
 
 // serverless-friendly mongoose connection
 async function connectToDatabase() {
-  if (mongoose.connection.readyState === 1) return; // already connected
-  if (global._mongoosePromise) {
-    await global._mongoosePromise;
-    return;
+  if (mongoose.connection.readyState === 1) {
+    return mongoose;
   }
-  global._mongoosePromise = mongoose.connect(process.env.MONGODB_URI);
-  await global._mongoosePromise;
+  if (global._mongoConnectPromise) {
+    await global._mongoConnectPromise;
+    return mongoose;
+  }
+
+  global._mongoConnectPromise = mongoose.connect(process.env.MONGODB_URI);
+
+  await global._mongoConnectPromise;
+  return mongoose;
 }
-connectToDatabase()
-  .then(() => console.log("✅ MongoDB Connected"))
-  .catch((err) => console.error("❌ MongoDB Connection Error:", err));
 
 // Session + passport
 app.use(session({
@@ -46,6 +48,17 @@ app.use(session({
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+// middleware to ensure DB is connected before handling requests
+app.use(async (req, res, next) => {
+  try {
+    await connectToDatabase();
+    next();
+  } catch (err) {
+    console.error("Mongo connect error (middleware):", err);
+    next(err);
+  }
+});
 
 // quick health route
 app.get("/api/health", (req, res) => res.json({ ok: true, now: new Date().toISOString() }));
