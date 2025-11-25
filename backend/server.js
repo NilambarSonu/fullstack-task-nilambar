@@ -26,10 +26,7 @@ async function connectToDatabase() {
     await global._mongoosePromise;
     return;
   }
-  global._mongoosePromise = mongoose.connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true
-  });
+  global._mongoosePromise = mongoose.connect(process.env.MONGO_URI);
   await global._mongoosePromise;
 }
 connectToDatabase()
